@@ -22,6 +22,29 @@ export async function AddUser(req: Request, res: Response) {
         password: hashPassword,
         gender: gender,
         isVerified: isVerified,
+        category: {
+          create: {
+            title: "general",
+            description: "general",
+            isCommon: false,
+          },
+        },
+        type: {
+          createMany: {
+            data: [
+              {
+                title: "income",
+                description: "income",
+                isCommon: false,
+              },
+              {
+                title: "expense",
+                description: "expense",
+                isCommon: false,
+              },
+            ],
+          },
+        },
         verify: {
           create: {
             key: generatedKey,
@@ -37,12 +60,18 @@ export async function AddUser(req: Request, res: Response) {
       },
     });
     try {
-      const response = SendEmailVerifyKey(email, generatedKey, maxDateLimit,fname,lname);
+      const response = SendEmailVerifyKey(
+        email,
+        generatedKey,
+        maxDateLimit,
+        fname,
+        lname
+      );
       return res
         .status(200)
         .json(
           GenerateSuccessJSON(
-            "Created user successfully with email service " ,
+            "Created user successfully with email service ",
             result
           )
         );

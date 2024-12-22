@@ -105,7 +105,7 @@ export function Header() {
                   className="p-2 mb-2  border  rounded-lg bg-bgMain"
                 >
                   <h5>{notify.title}</h5>
-                  <p className=" line-clamp-2">{notify.description}</p>
+                  <p className=" ">{notify.description}</p>
                   <button
                     onClick={() =>
                       UpdateNotificationStatus(notify.userId, notify.id)

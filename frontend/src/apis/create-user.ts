@@ -16,7 +16,7 @@ export async function CreateUser({
   gender: string;
 }) {
   let castedAge = Number(age);
-  
+  let isResponse = false;
   try {
     await axios
       .post(`register-users`, {
@@ -30,21 +30,26 @@ export async function CreateUser({
       .then((res) => {
         const response = res.data;
         console.log(response.data);
-        toast.success(res.data);
+        toast.success(response.message);
+        isResponse = true;
       })
       .catch((err) => {
         const error = err.response.data.error;
         if (typeof error === typeof String()) {
           toast.error(error);
+          isResponse = false;
         } else {
           error.forEach((err: any) => {
             toast.error(err.message);
           });
+          isResponse = false;
         }
         console.log(error);
       });
   } catch (e) {
-    toast.error('Unknown error occurred while making request');
+    toast.error("Unknown error occurred while making request");
     console.log(e);
+    isResponse = false;
   }
+  return isResponse;
 }

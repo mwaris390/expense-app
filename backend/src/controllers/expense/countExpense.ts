@@ -7,37 +7,12 @@ export async function CountExpense(req: Request, res: Response) {
   const { id } = req.params;
   if (id) {
     try {
-      //   let result = await prisma.expense.aggregate({
-      //     _sum: {
-      //       amount: true,
-      //     },
-      //     where: {
-      //       userId: id,
-      //     },
-      //   });
-      //   let result = await prisma.expense.groupBy({
-      //     by: ["expenseCategoryId"],
-      //     _sum: {
-      //       amount: true,
-      //     },
-      //     where: {
-      //       userId: id,
-      //     },
-
-      //   });
-
-      let result = await prisma.budget.findMany({
+      let result = await prisma.expense.aggregate({
+        _sum: {
+          amount: true,
+        },
         where: {
           userId: id,
-        },
-        select: {
-          amount: true,
-          limitAmount: true,
-          category: {
-            select: {
-              title: true,
-            },
-          },
         },
       });
 

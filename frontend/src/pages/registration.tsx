@@ -28,9 +28,13 @@ export function Registration() {
     resolver: zodResolver(formSchema),
     mode: "onChange",
   });
-  const data = (data: any) => {
+  let nav = useNavigate();
+  const data = async(data: any) => {
     console.log(data);
-    CreateUser(data);
+    let response = await CreateUser(data);
+    if (response) {
+      nav('/login')
+    }
   };
   return (
     <>
